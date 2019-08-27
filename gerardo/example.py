@@ -1,3 +1,4 @@
+import multiprocessing
 import os
 from gerardo import psql_insert
 
@@ -16,4 +17,5 @@ COLUMNS = [('x', 'INT'), ('x2', 'INT')]
 def f(x):
     return (x, x**2)
 
-[f(x) for x in range(100)]
+with multiprocessing.Pool() as p:
+    p.map(f, [x for x in range(5)])
