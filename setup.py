@@ -32,5 +32,5 @@ setup(
     ],
     keywords="psql multiprocessing",
     packages=["gerardo"],
-    install_requires=["psycopg2-binary"],
+    install_requires=["psycopg2-binary", "pathos"],
 )
