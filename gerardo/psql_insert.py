@@ -88,14 +88,15 @@ def psql_mp_insert(PH):
     """
 
     def psql_inner(func):
-        def insert_func(*args, **kwargs):
-            result = func(*args, **kwargs)
+        def insert_func(*args):
+            result = func(*args)
             PH.insert(result)
             return result
 
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args):
             with ProcessPool() as p:
+                print(list(args))
                 p.map(insert_func, args)
 
         return wrapper

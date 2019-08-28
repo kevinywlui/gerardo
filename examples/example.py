@@ -28,9 +28,9 @@ PH = psql_handler(DSN, PSQL_TABLE, COLUMNS)
 # This transform `f` into a function that applies `f` to a list of arguments in
 # parallel and inserts into a table
 @psql_mp_insert(PH)
-def f(x):
-    return (x, x**2)
+def f(x, y):
+    return (x+y, x*y)
 
 # Actually compute with `f`.
-l = range(100)
+l = [(x,y) for x in range(5) for y in range(10)]
 f(*l)
