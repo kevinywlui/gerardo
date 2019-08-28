@@ -7,7 +7,7 @@ results in a PostgreSQL database.
 
 See `examples/example.py` for more details.
 
-```
+```python
 from gerardo import psql_mp_insert, psql_handler
 
 # Set a PostgreSQL handler
