@@ -1,5 +1,7 @@
 # gerardo
 
+[![PyPI version](https://badge.fury.io/py/gerardo.svg)](https://badge.fury.io/py/gerardo)
+
 **gerardo** provides decorators to easily compute in parallel and store the
 results in a PostgreSQL database.
 
