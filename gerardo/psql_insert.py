@@ -2,7 +2,7 @@
 
 There are two decorators `psql_insert` and `psql_mp_insert`. The first inserts
 the result of a function onto a PostgreSQL database. The second is the
-multiprocessing version of the first.
+multiprocessing version of the first but only for single variable functions.
 """
 
 import functools
@@ -20,8 +20,8 @@ class psql_handler:
     Args:
         dsn (dict): dictionary of the connection parameter.
         table (str): name of table.
-        columns (List[Tuple[str, str]]): list of tuples where the first entry is the
-        column name and the second entry is the type.
+        columns (List[Tuple[str, str]]): list of tuples where the first entry
+            is the column name and the second entry is the type.
     """
 
     def __init__(self, dsn, table, columns):
@@ -80,6 +80,8 @@ def psql_mp_insert(PH):
     """Decorator that insert the output of a function into a PostgreSQL
     database in parallel.
 
+    The current draw back to this we only decorate single-variable functions.
+
     Args:
         PH (psql_handler): the handler for the PostgreSQL database.
 
@@ -96,8 +98,7 @@ def psql_mp_insert(PH):
         @functools.wraps(func)
         def wrapper(*args):
             with ProcessPool() as p:
-                print(list(args))
-                p.map(insert_func, args)
+                p.map(insert_func, *args)
 
         return wrapper
 
