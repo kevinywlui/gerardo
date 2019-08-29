@@ -24,12 +24,13 @@ class psql_handler:
             is the column name and the second entry is the type.
     """
 
-    def __init__(self, dsn, table, columns):
+    def __init__(self, dsn, table, columns, drop=False):
         self.table = table
         self.dsn = dsn
         with psycopg2.connect(**dsn) as conn:
             with conn.cursor() as c:
-                c.execute(f"DROP TABLE if exists {table};")
+                if drop:
+                    c.execute(f"DROP TABLE if exists {table};")
 
                 # form table with columns
                 start = f"CREATE TABLE {table} ("
